@@ -13,6 +13,6 @@ jar cf nxt.jar -C classes . || exit 1
 echo "nxt.jar generated successfully"
 
 /bin/rm -f nxt.zip
-zip -qr -9 nxt.zip conf/nxt-default.properties conf/logging-default.properties html/ lib/ logs/ fim.jar MIT-license.txt README.txt run.bat run.sh
+zip -qr -9 nxt.zip conf/nxt-default.properties conf/logging-default.properties html/ lib/ logs/ fim.jar keystore MIT-license.txt README.txt run.bat run.sh
 
 echo "nxt.zip generated successfully"
