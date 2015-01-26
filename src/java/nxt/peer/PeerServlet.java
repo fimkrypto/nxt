@@ -76,7 +76,7 @@ public final class PeerServlet extends HttpServlet {
         JSONStreamAware response;
 
         try {
-            peer = Peers.addPeer(req.getRemoteAddr(), null);
+            peer = Peers.addPeer(req.getRemoteAddr(), -1, null);
             if (peer == null) {
                 return;
             }
@@ -100,10 +100,6 @@ public final class PeerServlet extends HttpServlet {
                 }
             }
             peer.updateDownloadedVolume(cis.getCount());
-            if (! peer.analyzeHallmark(peer.getPeerAddress(), (String)request.get("hallmark"))) {
-                peer.blacklist();
-                return;
-            }
 
             if (request.get("protocol") != null && ((Number)request.get("protocol")).intValue() == 1) {
                 PeerRequestHandler peerRequestHandler = peerRequestHandlers.get(request.get("requestType"));
