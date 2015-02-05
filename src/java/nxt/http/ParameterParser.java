@@ -2,6 +2,7 @@ package nxt.http;
 
 import nxt.Account;
 import nxt.Alias;
+import nxt.MofoQueries.TransactionFilter;
 import nxt.Asset;
 import nxt.Constants;
 import nxt.Currency;
@@ -15,11 +16,13 @@ import nxt.crypto.Crypto;
 import nxt.crypto.EncryptedData;
 import nxt.util.Convert;
 import nxt.util.Logger;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,8 +107,8 @@ final class ParameterParser {
             throw new ParameterException(UNKNOWN_ALIAS);
         }
         return alias;
-    }
-
+    } 
+    
     static long getAmountNQT(HttpServletRequest req) throws ParameterException {
         return getLong(req, "amountNQT", 1L, Constants.MAX_BALANCE_NQT, true);
     }
@@ -468,7 +471,7 @@ final class ParameterParser {
         }
         return -1;
     }
-
+    
     static Transaction parseTransaction(String transactionBytes, String transactionJSON) throws ParameterException {
         if (transactionBytes == null && transactionJSON == null) {
             throw new ParameterException(MISSING_TRANSACTION_BYTES_OR_JSON);
@@ -497,7 +500,6 @@ final class ParameterParser {
             }
         }
     }
-
 
     private ParameterParser() {} // never
 
