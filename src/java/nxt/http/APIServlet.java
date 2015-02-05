@@ -5,6 +5,7 @@ import nxt.Nxt;
 import nxt.NxtException;
 import nxt.util.JSON;
 import nxt.util.Logger;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -228,6 +230,9 @@ public final class APIServlet extends HttpServlet {
         map.put("addPeer", AddPeer.instance);
         map.put("blacklistPeer", BlacklistPeer.instance);
         
+        /* XXX - MofoWallet specific extensions */
+        map.put("mofoCombine", MofoCombine.instance);
+        
         apiRequestHandlers = Collections.unmodifiableMap(map);
     }
 
@@ -253,7 +258,7 @@ public final class APIServlet extends HttpServlet {
 
             long startTime = System.currentTimeMillis();
 
-			if (! API.isAllowed(req.getRemoteHost())) {
+            if (! API.isAllowed(req.getRemoteHost())) {
                 response = ERROR_NOT_ALLOWED;
                 return;
             }
@@ -285,7 +290,7 @@ public final class APIServlet extends HttpServlet {
                 }
             }
 
-            try {
+            try {              
                 if (apiRequestHandler.startDbTransaction()) {
                     Db.db.beginTransaction();
                 }
