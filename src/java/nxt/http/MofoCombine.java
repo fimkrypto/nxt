@@ -23,6 +23,7 @@ public final class MofoCombine extends APIServlet.APIRequestHandler {
         super(new APITag[] {APITag.MOFO}, "combinedRequest");
     }
   
+    @SuppressWarnings("unchecked")
     @Override
     JSONStreamAware processRequest(HttpServletRequest req) throws NxtException {
       
