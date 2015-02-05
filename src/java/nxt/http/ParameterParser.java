@@ -2,7 +2,6 @@ package nxt.http;
 
 import nxt.Account;
 import nxt.Alias;
-import nxt.MofoQueries.TransactionFilter;
 import nxt.Asset;
 import nxt.Constants;
 import nxt.Currency;
