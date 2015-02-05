@@ -1,11 +1,12 @@
 package nxt.http;
 
+import java.util.Arrays;
+
 import nxt.Constants;
 import nxt.util.JSON;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
-
-import java.util.Arrays;
 
 public final class JSONResponses {
 
@@ -109,6 +110,10 @@ public final class JSONResponses {
     public static final JSONStreamAware INCORRECT_HEIGHT = incorrect("height");
     public static final JSONStreamAware MISSING_HEIGHT = missing("height");
     public static final JSONStreamAware INCORRECT_PLAIN_MESSAGE = incorrect("messageToEncrypt");
+
+    public static final JSONStreamAware INCORRECT_FILTER = incorrect("filter");
+    public static final JSONStreamAware INCORRECT_JSON_ARGS = incorrect("jsonArgs");
+
     public static final JSONStreamAware INCORRECT_CURRENCY_NAME_LENGTH = incorrect("name", "(length must be in [" + Constants.MIN_CURRENCY_NAME_LENGTH + ".." + Constants.MAX_CURRENCY_NAME_LENGTH + "] range)");
     public static final JSONStreamAware INCORRECT_CURRENCY_CODE_LENGTH = incorrect("code", "(length must be in [" + Constants.MIN_CURRENCY_CODE_LENGTH + ".." + Constants.MAX_CURRENCY_CODE_LENGTH + "] range)");
     public static final JSONStreamAware INCORRECT_CURRENCY_NAME = incorrect("name", "(must contain only digits and latin letters)");
@@ -123,7 +128,7 @@ public final class JSONResponses {
     public static final JSONStreamAware INCORRECT_MESSAGE_PATTERN_REGEX = incorrect("messagePatternRegex");
     public static final JSONStreamAware INCORRECT_MESSAGE_PATTERN_FLAGS = incorrect("messagePatternFlags");
     public static final JSONStreamAware INCORRECT_ADMIN_PASSWORD = incorrect("adminPassword", "(the specified password does not match nxt.adminPassword)");
-    
+
     public static final JSONStreamAware NOT_ENOUGH_FUNDS;
     static {
         JSONObject response = new JSONObject();
@@ -251,7 +256,7 @@ public final class JSONResponses {
         response.put("errorDescription", "Administrator's password is not configured. Please set nxt.adminPassword");
         NO_PASSWORD_IN_CONFIG = JSON.prepare(response);
     }
-
+    
     static JSONStreamAware missing(String... paramNames) {
         JSONObject response = new JSONObject();
         response.put("errorCode", 3);
