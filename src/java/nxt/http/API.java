@@ -2,8 +2,10 @@ package nxt.http;
 
 import nxt.Constants;
 import nxt.Nxt;
+import nxt.http.websocket.MofoEventServlet;
 import nxt.util.Logger;
 import nxt.util.ThreadPool;
+
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.SecureRequestCustomizer;
@@ -36,8 +38,9 @@ public final class API {
 
     public static final int TESTNET_API_PORT = 6876;
 
-    private static final Set<String> allowedBotHosts;
+    public static final Set<String> allowedBotHosts;
     private static final List<NetworkAddress> allowedBotNets;
+    static final boolean enableWebsockets = Nxt.getBooleanProperty("nxt.enableWebsockets");
     static final String adminPassword = Nxt.getStringProperty("nxt.adminPassword", "", true);
     static final boolean disableAdminPassword;
     private static final Server apiServer;
@@ -137,6 +140,10 @@ public final class API {
             apiHandler.addServlet(APITestServlet.class, "/test");
 
             apiHandler.addServlet(DbShellServlet.class, "/dbshell");
+            
+            if (enableWebsockets) {              
+                apiHandler.addServlet(MofoEventServlet.class, "/ws/*");
+            }
 
             if (Nxt.getBooleanProperty("nxt.apiServerCORS")) {
                 FilterHolder filterHolder = apiHandler.addFilter(CrossOriginFilter.class, "/*", null);
